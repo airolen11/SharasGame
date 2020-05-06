@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace SharasGame
 {
-    class Program
+    public class FoodTile : GameTile
     {
-        static void Main(string[] args)
+        public override void OnStep(Player player)
         {
-            Game game = null;
-            GameMenu menu = new GameMenu(game);
+            player.HP = player.maxHP; //HEAL TO FULL
         }
     }
 }
