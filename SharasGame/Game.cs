@@ -13,7 +13,6 @@ namespace SharasGame
             if (loadMap) throw new NotImplementedException();
 
             map = new GameMap();
-            GenerateNewMap();
         }
 
         public void Tick(string operation)
@@ -28,9 +27,6 @@ namespace SharasGame
         {
             throw new NotImplementedException();
         }
-        public void GenerateNewMap()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

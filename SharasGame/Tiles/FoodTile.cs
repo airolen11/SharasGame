@@ -8,9 +8,14 @@ namespace SharasGame
 {
     public class FoodTile : GameTile
     {
-        public override void OnStep(Player player)
+
+        public FoodTile()
         {
-            player.HP = player.maxHP; //HEAL TO FULL
+            symbol = 'F';
+        }
+        public override void OnStep(Game game)
+        {
+            game.player.Food = game.player.maxFood; //HEAL TO FULL
         }
     }
 }
