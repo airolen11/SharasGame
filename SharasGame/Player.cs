@@ -19,7 +19,7 @@ namespace SharasGame
         public int maxFood { get; set; }
         public char symbol { get; set; }
 
-        public Player()
+        public Player(Game game)
         {
             xPos = 0;
             yPos = 0;

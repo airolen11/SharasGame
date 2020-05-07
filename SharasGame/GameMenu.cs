@@ -9,11 +9,12 @@ namespace SharasGame
     public class GameMenu
     {
 
-        public GameMenu()
+        public GameMenu(Game game)
         {
+
         }
 
-        private string Render(bool actionError)
+        public string Run(bool actionError)
         {
             Console.Clear();
 
@@ -35,48 +36,18 @@ namespace SharasGame
             Console.Write("Enter the action: ");
             string operation = Console.ReadLine();
 
-            switch (operation)
+            if( operation != "1" &&
+                operation != "2" &&
+                operation != "3" &&
+                operation != "4")
             {
-                case "1":
-                    CreateGame();
-                    break;
-                case "2":
-                    ShowTop();
-                    break;
-                case "3":
-                    LoadGame();
-                    break;
-                case "4":
-                    Exit();
-                    break;
-                default:
-                    if(Game.running) Render(true);
-                    break;
+                return Run(true);
             }
+            return operation;
+
 
         }
 
-        void CreateGame()
-        {
-            
-        }
-
-        void LoadGame()
-        {
-            
-        }
-        void ShowTop()
-        {
-            throw new NotImplementedException();
-        }
-        void Exit()
-        {
-            Console.Clear();
-
-            Console.WriteLine("YOU LEFT THE GAME!");
-            System.Threading.Thread.Sleep(2000);
-            Game.running = false;
-        }
 
 
     }

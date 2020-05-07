@@ -13,9 +13,9 @@ namespace SharasGame
         {
             symbol = 'T';
         }
-        public override void OnStep(Game game)
+        public override void OnStep(Player player)
         {
-            game.player.HP = 0;
+            player.HP = 0;
         }
     }
 }

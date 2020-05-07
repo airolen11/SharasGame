@@ -8,10 +8,10 @@
         {
             symbol = '*';
         }
-        public virtual void OnStep(Game game)
+        public virtual void OnStep(Player player)
         {
-            game.player.Energy--;
-            game.player.Food--;
+            player.Energy--;
+            player.Food--;
         }
 
     }

@@ -6,16 +6,20 @@ namespace SharasGame
     {
         GameTile[,] map { get; set; }
 
-        public GameMap()
+        public GameMap(Game game)
         {
-            map = new GameTile[10, 10];
+            map = new GameTile[10, 15];
             GenerateNewMap();
         }
-
+        public void ReactToStep(Player player)
+        {
+            map[player.yPos, player.xPos].OnStep(player);
+            map[player.yPos, player.xPos] = new GameTile();
+        }
         private void GenerateNewMap()
         {
-            int x = map.GetLength(1); 
-            int y = map.GetLength(0);
+            int x = map.GetLength(0); 
+            int y = map.GetLength(1);
             Random gen = new Random();
 
             //Randomizing tile types
@@ -61,14 +65,14 @@ namespace SharasGame
 
         public string Render(Player player)
         {
-            int x = map.GetLength(1);
-            int y = map.GetLength(0);
+            int x = map.GetLength(0);
+            int y = map.GetLength(1);
 
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
                 {
-                    if(player.xPos == i && player.yPos == j)
+                    if(player.yPos == i && player.xPos == j)
                     {
                         Console.BackgroundColor = ConsoleColor.Yellow;
                         Console.ForegroundColor = ConsoleColor.Black;
@@ -85,6 +89,14 @@ namespace SharasGame
             }
             Console.WriteLine();
             return "";
+        }
+        public int yLength()
+        {
+            return map.GetLength(0);
+        }
+        public int xLength()
+        {
+            return map.GetLength(1);
         }
 
     }
