@@ -17,12 +17,13 @@ namespace SharasGame
         public int maxEnergy { get; set; }
         public int Food { get; set; }
         public int maxFood { get; set; }
+        public char symbol { get; set; }
 
         public Player()
         {
             xPos = 0;
             yPos = 0;
-
+            symbol = 'P';
             //INTERCHANGEABLE
             HP = 10;
             maxHP = 20;

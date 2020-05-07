@@ -10,7 +10,6 @@ namespace SharasGame
         {
             map = new GameTile[10, 10];
             GenerateNewMap();
-            Render();
         }
 
         private void GenerateNewMap()
@@ -60,21 +59,32 @@ namespace SharasGame
 
         }
 
-        public void Render()
+        public string Render(Player player)
         {
-            int x = map.GetLength(1); Console.WriteLine(x);
-            int y = map.GetLength(0); Console.WriteLine(y);
+            int x = map.GetLength(1);
+            int y = map.GetLength(0);
 
-            Console.WriteLine();
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
                 {
-                    Console.Write(map[i, j].symbol);
+                    if(player.xPos == i && player.yPos == j)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write(player.symbol);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.Write(map[i, j].symbol);
+                    }
                 }
                 Console.Write("\n");
             }
             Console.WriteLine();
+            return "";
         }
 
     }
