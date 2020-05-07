@@ -11,7 +11,11 @@ namespace SharasGame
         static void Main(string[] args)
         {
             Game game = null;
-            GameMenu menu = new GameMenu(game);
+            GameMenu menu = new GameMenu(ref game);
+            Console.OutputEncoding = Encoding.Unicode;
+            game.Loop();
+
+
         }
     }
 }

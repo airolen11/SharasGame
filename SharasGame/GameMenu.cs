@@ -9,15 +9,15 @@ namespace SharasGame
     public class GameMenu
     {
 
-        public GameMenu(Game game)
+        public GameMenu(ref Game game)
         {
             Game.running = true;
-            Render(game, false);
+            Render(ref game, false);
             
         }
 
 
-        private void Render(Game game, bool actionError)
+        private void Render(ref Game game, bool actionError)
         {
             Console.Clear();
 
@@ -42,30 +42,30 @@ namespace SharasGame
             switch (operation)
             {
                 case "1":
-                    CreateGame(game);
+                    CreateGame(ref game);
                     break;
                 case "2":
                     ShowTop();
                     break;
                 case "3":
-                    LoadGame(game);
+                    LoadGame(ref game);
                     break;
                 case "4":
                     Exit();
                     break;
                 default:
-                    if(Game.running) Render(game, true);
+                    if(Game.running) Render(ref game, true);
                     break;
             }
 
         }
 
-        void CreateGame(Game game)
+        void CreateGame(ref Game game)
         {
             game = new Game(false);
         }
 
-        void LoadGame(Game game)
+        void LoadGame(ref Game game)
         {
             game = new Game(true);
         }

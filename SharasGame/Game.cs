@@ -11,17 +11,41 @@ namespace SharasGame
         public Game(bool loadMap)
         {
             if (loadMap) throw new NotImplementedException();
-
+            player = new Player();
             map = new GameMap();
+        }
+
+        public void Loop()
+        {
+            while (running)
+            {
+                string op = Render();
+                Tick(op);
+            }
         }
 
         public void Tick(string operation)
         {
+            /*
+             Ops:
+                 Down Up Left Right
+                 Rest / Sleep
+                 Quit
+                 Save
+             
+             
+             
+             */
             throw new NotImplementedException();
         }
-        public void Render()
+        public string Render()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            map.Render(player);
+            Console.WriteLine();
+            Console.Write("Fuck you wanna do B?: ");
+            return Console.ReadLine();
         }
         public void Save()
         {
