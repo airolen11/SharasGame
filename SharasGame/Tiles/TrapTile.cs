@@ -13,9 +13,12 @@ namespace SharasGame
         {
             symbol = 'T';
         }
-        public override void OnStep(Player player)
+        public override bool OnStep(Player player)
         {
-            player.HP = 0;
+            player.setHP(-3);
+            player.setEnergy(-1);
+            player.AdjustForDeficencies();
+            return player.isAlive();
         }
     }
 }

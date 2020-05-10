@@ -13,9 +13,10 @@ namespace SharasGame
         {
             symbol = 'F';
         }
-        public override void OnStep(Player player)
+        public override bool OnStep(Player player)
         {
-            player.Food = player.maxFood; //HEAL TO FULL
+            player.setFood(2);
+            return player.isAlive();
         }
     }
 }

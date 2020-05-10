@@ -8,10 +8,12 @@
         {
             symbol = '*';
         }
-        public virtual void OnStep(Player player)
+        public virtual bool OnStep(Player player)
         {
-            player.Energy--;
-            player.Food--;
+            player.setEnergy(-1);
+            player.setFood(-1);
+            player.AdjustForDeficencies();
+            return player.isAlive();
         }
 
     }

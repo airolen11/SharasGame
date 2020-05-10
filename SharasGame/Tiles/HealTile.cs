@@ -13,9 +13,10 @@ namespace SharasGame
         {
             symbol = 'H';
         }
-        public override void OnStep(Player player)
+        public override bool OnStep(Player player)
         {
-            player.HP = player.maxHP;
+            player.setHP(3);
+            return player.isAlive();
         }
     }
 }

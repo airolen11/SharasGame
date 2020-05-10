@@ -5,16 +5,23 @@ namespace SharasGame
     public class GameMap
     {
         GameTile[,] map { get; set; }
-
+        Game game;
         public GameMap(Game game)
         {
+            this.game = game;
             map = new GameTile[10, 15];
             GenerateNewMap();
         }
-        public void ReactToStep(Player player)
+        public bool ReactToStep(Player player)
         {
-            map[player.yPos, player.xPos].OnStep(player);
+            if (player.xPos == xLength()-1 && player.yPos == yLength()-1)
+            {
+                game.OnVictory();
+            }
+            bool alive = map[player.yPos, player.xPos].OnStep(player);
+            player.addTurn();
             map[player.yPos, player.xPos] = new GameTile();
+            return alive;
         }
         private void GenerateNewMap()
         {
