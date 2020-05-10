@@ -36,7 +36,7 @@ namespace SharasGame
                     ShowTop();
                     break;
                 case "3":
-                    LoadGame();
+                    Load();
                     break;
                 case "4":
                     ExitProgram();
@@ -109,10 +109,6 @@ namespace SharasGame
             map = new GameMap(this);
             player = new Player(this);
         }
-        void LoadGame()
-        {
-            throw new NotImplementedException();
-        }
         void ShowTop()
         {
             Console.Clear();
@@ -135,6 +131,7 @@ namespace SharasGame
             {
                 Console.WriteLine("Leaderboard is empty!");
                 System.Threading.Thread.Sleep(2000);
+                sr.Close();
                 return;
             }
             list.Sort((x, y) => y.Value.CompareTo(x.Value));
@@ -145,6 +142,7 @@ namespace SharasGame
                 //1. Name - Score
                 place++;
             }
+            sr.Close();
             System.Threading.Thread.Sleep(5000);
         }
         void ExitProgram()
@@ -231,7 +229,87 @@ namespace SharasGame
         }
         public void Save()
         {
-            throw new NotImplementedException();
+            string savedPath = "saved.txt";
+            StreamWriter sw = new StreamWriter(savedPath);
+            string mapTilesLine = "";
+
+            for(int i = 0; i < map.yLength(); i++)
+            {
+                for (int j = 0; j < map.xLength(); j++)
+                {
+                    mapTilesLine += map.tiles[i, j].symbol;
+                }
+            }
+
+            sw.WriteLine(mapTilesLine);
+            sw.WriteLine(player.xPos);
+            sw.WriteLine(player.yPos);
+            sw.WriteLine(player.Name);
+            sw.WriteLine(player.Turns);
+            sw.WriteLine(player.HP);
+            sw.WriteLine(player.maxHP);
+            sw.WriteLine(player.Energy);
+            sw.WriteLine(player.maxEnergy);
+            sw.WriteLine(player.Food);
+            sw.WriteLine(player.maxFood);
+            sw.WriteLine(player.symbol);
+
+            sw.Close();
+
+            inGame = false;
+        }
+        void Load()
+        {
+            string savedPath = "saved.txt";
+            StreamReader sr = new StreamReader(savedPath);
+
+            CreateGame();
+
+            for (int i = 0; i < map.yLength(); i++)
+            {
+                for (int j = 0; j < map.xLength(); j++)
+                {
+                    
+                    switch (sr.Read())
+                    {
+                        case '*':
+                        case 'O':
+                            map.tiles[i, j] = new GameTile();
+                            break;
+                        case 'H':
+                            map.tiles[i, j] = new HealTile();
+                            break;
+                        case 'F':
+                            map.tiles[i, j] = new FoodTile();
+                            break;
+                        case 'T':
+                            map.tiles[i, j] = new TrapTile();
+                            break;
+                    }
+                }
+            }
+
+            map.tiles[map.yLength() - 1, map.xLength() - 1].symbol = 'O';
+
+            sr.ReadLine();
+
+            //Player
+            string xxx = sr.ReadLine();
+            player.xPos = int.Parse(xxx);
+            player.yPos = int.Parse(sr.ReadLine());
+            player.Name = sr.ReadLine();
+            player.Turns = int.Parse(sr.ReadLine());
+            player.HP = int.Parse(sr.ReadLine());
+            player.maxHP = int.Parse(sr.ReadLine());
+            player.Energy = int.Parse(sr.ReadLine());
+            player.maxEnergy = int.Parse(sr.ReadLine());
+            player.Food = int.Parse(sr.ReadLine());
+            player.maxFood = int.Parse(sr.ReadLine());
+            player.symbol = sr.ReadLine()[0];
+
+            sr.Close();
+
+            inGame = true;
         }
 
     }

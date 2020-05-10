@@ -4,12 +4,12 @@ namespace SharasGame
 {
     public class GameMap
     {
-        GameTile[,] map { get; set; }
+        public GameTile[,] tiles { get; set; }
         Game game;
         public GameMap(Game game)
         {
             this.game = game;
-            map = new GameTile[10, 15];
+            tiles = new GameTile[10, 15];
             GenerateNewMap();
         }
         public bool ReactToStep(Player player)
@@ -18,15 +18,15 @@ namespace SharasGame
             {
                 game.OnVictory();
             }
-            bool alive = map[player.yPos, player.xPos].OnStep(player);
+            bool alive = tiles[player.yPos, player.xPos].OnStep(player);
             player.addTurn();
-            map[player.yPos, player.xPos] = new GameTile();
+            tiles[player.yPos, player.xPos] = new GameTile();
             return alive;
         }
         private void GenerateNewMap()
         {
-            int x = map.GetLength(0); 
-            int y = map.GetLength(1);
+            int x = tiles.GetLength(0); 
+            int y = tiles.GetLength(1);
             Random gen = new Random();
 
             //Randomizing tile types
@@ -40,40 +40,41 @@ namespace SharasGame
                     int dice = gen.Next(0, 100);
                     if(dice < 65)
                     {
-                        map[i, j] = new GameTile();
+                        tiles[i, j] = new GameTile();
                     }
                     else if (dice < 80)
                     {
-                        map[i, j] = new TrapTile();
+                        tiles[i, j] = new TrapTile();
                     }
                     else if (dice < 90)
                     {
-                        map[i, j] = new HealTile();
+                        tiles[i, j] = new HealTile();
                     }
                     else 
                     {
-                        map[i, j] = new FoodTile();
+                        tiles[i, j] = new FoodTile();
                     }
                 }
             }
 
             //SAFEZONES
-            map[0, 0] = new GameTile();
-            map[1, 0] = new GameTile();
-            map[1, 1] = new GameTile();
-            map[0, 1] = new GameTile();
+            tiles[0, 0] = new GameTile();
+            tiles[1, 0] = new GameTile();
+            tiles[1, 1] = new GameTile();
+            tiles[0, 1] = new GameTile();
 
-            map[x - 1, y - 1] = new GameTile();
-            map[x - 2, y - 1] = new GameTile();
-            map[x - 2, y - 2] = new GameTile();
-            map[x - 1, y - 2] = new GameTile();
+            tiles[x - 1, y - 1] = new GameTile();
+            tiles[x - 1, y - 1].symbol = 'O';
+            tiles[x - 2, y - 1] = new GameTile();
+            tiles[x - 2, y - 2] = new GameTile();
+            tiles[x - 1, y - 2] = new GameTile();
 
         }
 
         public string Render(Player player)
         {
-            int x = map.GetLength(0);
-            int y = map.GetLength(1);
+            int x = tiles.GetLength(0);
+            int y = tiles.GetLength(1);
 
             for (int i = 0; i < x; i++)
             {
@@ -89,7 +90,7 @@ namespace SharasGame
                     }
                     else
                     {
-                        Console.Write(map[i, j].symbol);
+                        Console.Write(tiles[i, j].symbol);
                     }
                 }
                 Console.Write("\n");
@@ -99,11 +100,11 @@ namespace SharasGame
         }
         public int yLength()
         {
-            return map.GetLength(0);
+            return tiles.GetLength(0);
         }
         public int xLength()
         {
-            return map.GetLength(1);
+            return tiles.GetLength(1);
         }
 
     }
